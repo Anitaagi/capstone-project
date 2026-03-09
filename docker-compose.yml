@@ -1,24 +1,21 @@
-version: "3"
-
 services:
 
   database:
     image: postgres:15
-    restart: always
     environment:
-      POSTGRES_USER: postgres
+      POSTGRES_USER: admin
       POSTGRES_PASSWORD: password
-      POSTGRES_DB: capstone_db
+      POSTGRES_DB: capstone
     ports:
       - "5432:5432"
 
   backend:
     build: ./backend
-    restart: always
     ports:
       - "5000:5000"
     depends_on:
       - database
+    restart: always
 
   frontend:
     build: ./frontend
@@ -26,3 +23,4 @@ services:
       - "8080:80"
     depends_on:
       - backend
+    restart: always
